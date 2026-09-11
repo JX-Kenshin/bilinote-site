@@ -3,153 +3,437 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BiliNote - 视频一键转 AI 结构化笔记</title>
-  <meta name="description" content="BiliNote：粘贴视频链接，自动下载、转写、AI 总结，一键生成结构化 Markdown 笔记并导出到 Obsidian。支持 B 站、YouTube、微信视频号、抖音。">
+  <title>BiliNote - 视频一键转 AI 结构化知识笔记</title>
+  <meta name="description" content="BiliNote：面向专业学习者的现代视频笔记工具。自动解析音视频、本地帧级截帧、多引擎转写、智能大模型结构化总结，一键无缝导出 Markdown 与 Obsidian 本地知识库。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%93%9D%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233c77fb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z'/%3E%3Cpath d='M6 6h10'/%3E%3Cpath d='M6 10h10'/%3E%3C/svg%3E">
 </head>
 <body>
-  <header class="nav">
-    <div class="nav-inner">
-      <a class="brand" href="#"><span class="brand-logo">📝</span> BiliNote</a>
-      <nav class="nav-links">
-        <a href="#features">功能</a>
-        <a href="#showcase">效果展示</a>
-        <a href="#how">使用流程</a>
+  <!-- Background Glow & Grid -->
+  <div class="ambient-glow glow-top"></div>
+  <div class="ambient-glow glow-bottom"></div>
+  <div class="bg-grid-pattern"></div>
+
+  <!-- Navigation -->
+  <header class="nav-wrapper">
+    <nav class="nav">
+      <a class="brand" href="#">
+        <span class="brand-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+            <path d="M6 6h10"/>
+            <path d="M6 10h10"/>
+            <path d="m9 14 2 2 4-4"/>
+          </svg>
+        </span>
+        <span class="brand-name">BiliNote</span>
+      </a>
+
+      <div class="nav-menu">
+        <a href="#features">功能架构</a>
+        <a href="#showcase">效果预览</a>
+        <a href="#workflow">处理流水线</a>
+        <a href="#updates">更新日志</a>
         <a href="#faq">常见问题</a>
-        <a class="nav-download" href="#" id="nav-download">下载</a>
-      </nav>
-    </div>
+      </div>
+
+      <div class="nav-actions">
+        <a href="https://github.com/JX-Kenshin/bilinote-site" target="_blank" rel="noopener" class="btn-ghost" title="GitHub 仓库">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+        </a>
+        <a href="#download-anchor" class="btn-nav-cta">立即下载</a>
+      </div>
+    </nav>
   </header>
 
-  <section class="hero">
-    <div class="hero-inner">
-      <h1>把视频变成<b>结构化笔记</b></h1>
-      <p class="hero-sub">粘贴链接，自动下载、转写、AI 总结，生成可读的 Markdown 笔记，一键导出 Obsidian。</p>
-      <div class="hero-actions">
-        <a class="btn-primary" id="btn-download"
-           href="https://github.com/JX-Kenshin/bilinote-site/releases/latest/download/BiliNote-Setup.exe"
-           target="_blank" rel="noopener">
-          <span class="btn-title">下载 Windows 版</span>
-          <span class="btn-meta" id="btn-version">固定下载链接 · 始终为最新版</span>
+  <!-- Hero Section -->
+  <main>
+    <section class="hero-section">
+      <div class="container hero-container">
+        <!-- Floating Pill -->
+        <a href="#updates" class="hero-badge">
+          <span class="badge-pulse"></span>
+          <span class="badge-version" id="hero-badge-tag">v2.5.5 最新版已发布</span>
+          <span class="badge-divider"></span>
+          <span class="badge-cta">查看更新内容 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></span>
         </a>
+
+        <!-- Main Title -->
+        <h1 class="hero-title">
+          把沉长视频，一键重塑为<br>
+          <span class="title-gradient">结构化高密度深度笔记</span>
+        </h1>
+
+        <p class="hero-description">
+          拒绝信息过载与无效重播。BiliNote 为终身学习者打造：支持多平台原生解析、帧级自动截帧、本地 Whisper 离线转写与任意现代大模型提炼，全链路无缝链接 Obsidian 知识库。
+        </p>
+
+        <!-- CTA Area -->
+        <div class="hero-cta-wrapper" id="download-anchor">
+          <a class="btn-download-hero" id="btn-download"
+             href="https://github.com/JX-Kenshin/bilinote-site/releases/latest/download/BiliNote-Setup.exe"
+             target="_blank" rel="noopener">
+            <div class="btn-icon-wrapper">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+            </div>
+            <div class="btn-label-group">
+              <span class="btn-main-text">免费下载 Windows 版</span>
+              <span class="btn-sub-text" id="btn-version">64-bit 独立安装包 · 内置全套离线引擎</span>
+            </div>
+          </a>
+
+          <div class="hero-meta-row">
+            <span class="meta-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+              无需配置 Python / FFmpeg
+            </span>
+            <span class="meta-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+              数据本地优先存储
+            </span>
+            <span class="meta-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+              支持自由配置专属 API
+            </span>
+          </div>
+        </div>
+
+        <!-- Ecosystem Platforms Floating Row -->
+        <div class="platform-strip">
+          <div class="platform-strip-label">深度生态平台支持</div>
+          <div class="platform-chips">
+            <div class="chip">
+              <span class="chip-dot" style="background:#00a1d6;"></span>
+              <b>Bilibili</b> 单视频 / 合集 / 分P / 番剧
+            </div>
+            <div class="chip">
+              <span class="chip-dot" style="background:#ff0000;"></span>
+              <b>YouTube</b> 智能机翻多语字幕提取
+            </div>
+            <div class="chip">
+              <span class="chip-dot" style="background:#07c160;"></span>
+              <b>微信视频号</b> 本地轻量微服务驱动
+            </div>
+            <div class="chip">
+              <span class="chip-dot" style="background:#fe2c55;"></span>
+              <b>抖音</b> 无水印原画质视频提取
+            </div>
+            <div class="chip">
+              <span class="chip-dot" style="background:#7c3aed;"></span>
+              <b>Obsidian</b> 双向 Wiki-Link 原生集成
+            </div>
+          </div>
+        </div>
+
+        <!-- App Window Mockup Showcase -->
+        <div class="mockup-perspective" id="showcase">
+          <div class="mockup-window">
+            <div class="mockup-header">
+              <div class="window-controls">
+                <span class="ctrl ctrl-close"></span>
+                <span class="ctrl ctrl-min"></span>
+                <span class="ctrl ctrl-max"></span>
+              </div>
+              <div class="window-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                BiliNote Studio - 结构化笔记生成工作台
+              </div>
+              <div class="window-status">
+                <span class="status-indicator"></span> 离线就绪
+              </div>
+            </div>
+
+            <div class="mockup-body">
+              <div class="mockup-grid">
+                <div class="mockup-col">
+                  <div class="mockup-card-label">
+                    <span>自动截取高画质封面与时间戳元数据</span>
+                  </div>
+                  <div class="media-frame">
+                    <img src="assets/img/cover_sample.jpg" alt="BiliNote 自动生成的笔记封面" loading="lazy">
+                  </div>
+                </div>
+                <div class="mockup-col">
+                  <div class="mockup-card-label">
+                    <span>段落结构、核心观点提炼与关键帧对齐</span>
+                  </div>
+                  <div class="media-frame">
+                    <img src="assets/img/note_sample.jpg" alt="BiliNote 结构化正文与截图对齐" loading="lazy">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="hero-tags">
-        <span class="tag">🅑 B 站</span>
-        <span class="tag">▶️ YouTube</span>
-        <span class="tag">💬 微信视频号</span>
-        <span class="tag">🎵 抖音</span>
-        <span class="tag">🗂 Obsidian 导出</span>
-        <span class="tag">🔒 本地优先</span>
+    </section>
+
+    <!-- Bento Grid Features Section -->
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-head text-center">
+          <p class="section-tag">ARCHITECTURAL FEATURES</p>
+          <h2 class="section-heading">工业级严谨，打造极致笔记生成流水线</h2>
+          <p class="section-desc">将杂乱的视听音视频素材，转变为经得起时间检验的高信噪比数字资产。</p>
+        </div>
+
+        <div class="bento-grid">
+          <!-- Card 1 (Large - 2 columns) -->
+          <div class="bento-card bento-col-2">
+            <div class="bento-inner">
+              <div class="bento-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              </div>
+              <h3>全平台协议级媒体捕获引擎</h3>
+              <p>摆脱第三方解析插件的不稳定性。BiliNote 自研与整合专用下载驱动：B 站 WBI 签名探测与 4 线程分块流水线、YouTube 动态 JS 挑战计算、微信视频号本地微服务驱动、抖音无水印抓取。单视频、批量列表、全季番剧无缝导入。</p>
+              
+              <div class="bento-visual-pipeline">
+                <div class="pipe-node">URL 智能嗅探</div>
+                <div class="pipe-arrow">→</div>
+                <div class="pipe-node">分块多线程并发</div>
+                <div class="pipe-arrow">→</div>
+                <div class="pipe-node">无损音频分离</div>
+                <div class="pipe-arrow">→</div>
+                <div class="pipe-node active">结构化生产线</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bento-card">
+            <div class="bento-inner">
+              <div class="bento-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="M2 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="M12 18v4"/><path d="m16.24 16.24 2.83 2.83"/><path d="M18 12h4"/><path d="m16.24 7.76 2.83-2.83"/></svg>
+              </div>
+              <h3>分点式强结构化 AI 总结</h3>
+              <p>告别模型随意的“大白话罗列”。内置严格的 Markdown 章节提示词体系，强制按条目清晰分点输出，精准提取核心观点与推理过程，拒绝无序文本块。</p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bento-card">
+            <div class="bento-inner">
+              <div class="bento-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 8 6 4-6 4Z"/></svg>
+              </div>
+              <h3>帧级智能截帧与原画渲染</h3>
+              <p>基于 FFmpeg tile 矩阵与关键点算法提取视频画面。正文内置 16:9 比例锁定与无损图片微距预览，章节重点与视频原画严格图文对应。</p>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="bento-card">
+            <div class="bento-inner">
+              <div class="bento-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              </div>
+              <h3>Obsidian 与第二大脑无缝桥接</h3>
+              <p>原生支持导出至 Obsidian Vault 目录，自动转换 Wiki-Link 双向链接语法，视频标题与章节自动规范化，彻底融入你的本地知识网格。</p>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="bento-card">
+            <div class="bento-inner">
+              <div class="bento-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <h3>数据资产绝对本地自主权</h3>
+              <p>原始视频、音频音轨、转写字稿、生成的 Markdown 全部存放在你机器的本地目录。无需将私人数据托付给第三方闭源云端笔记平台。</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section alt" id="updates">
-    <div class="section-inner narrow">
-      <h2>最新更新</h2>
-      <div class="release-notes" id="release-notes-body"></div>
-      <p class="release-empty" id="release-empty">暂无已发布版本，敬请期待。</p>
-    </div>
-  </section>
+    <!-- Workflow / Processing Pipeline -->
+    <section class="section section-darker" id="workflow">
+      <div class="container">
+        <div class="section-head text-center">
+          <p class="section-tag">INTUITIVE PIPELINE</p>
+          <h2 class="section-heading">精巧三步，将 60 分钟视频化作 3 分钟浓缩读物</h2>
+        </div>
 
-  <section class="section" id="features">
-    <div class="section-inner">
-      <h2>核心功能</h2>
-      <div class="cards">
-        <div class="card">
-          <div class="card-icon">🌐</div>
-          <h3>多平台支持</h3>
-          <p>B 站（含合集/分P/番剧）、YouTube（含字幕）、微信视频号、抖音，统一入口一键解析下载。</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">🤖</div>
-          <h3>AI 结构化总结</h3>
-          <p>转写全文后由 LLM 生成分点式总结，支持任意 OpenAI 兼容模型（含本地/国内大模型）。</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">📄</div>
-          <h3>Markdown 笔记</h3>
-          <p>时间戳 + 截图 + 章节结构，生成可直接阅读的 Markdown，支持导出 HTML / PDF / JPG 长图。</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">🗂</div>
-          <h3>Obsidian 集成</h3>
-          <p>一键导出到 Obsidian 仓库，使用 wiki-link 格式，笔记与本地知识库无缝衔接。</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">🔒</div>
-          <h3>本地优先</h3>
-          <p>视频、音频、转写、笔记全部保存在本地，数据完全由你掌控。</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">⚡</div>
-          <h3>开箱即用</h3>
-          <p>自带 ffmpeg / 转写模型 / 解析引擎，安装即用，无需配置环境。</p>
+        <div class="flow-steps">
+          <div class="step-card">
+            <div class="step-num">01</div>
+            <h4>粘贴链接或合集入口</h4>
+            <p>复制来自 B 站、YouTube、视频号或抖音的任意视频分享短链，粘贴至输入栏。支持单集选择与全系列一键探测。</p>
+          </div>
+          <div class="step-divider-line"></div>
+          <div class="step-card">
+            <div class="step-num">02</div>
+            <h4>全自动本地流水线处理</h4>
+            <p>后台自动执行视频高速分块缓存、提取原音轨、Whisper 或云端高精转写，并调用自选 LLM 进行严谨摘要。</p>
+          </div>
+          <div class="step-divider-line"></div>
+          <div class="step-card">
+            <div class="step-num">03</div>
+            <h4>阅读、复制或多格式导出</h4>
+            <p>支持隐藏截图的纯享阅读、原文与转写对照。一键导出标准 Markdown、独立自包含 HTML、PDF 或高清 JPG 长图。</p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section alt" id="showcase">
-    <div class="section-inner">
-      <h2>效果展示</h2>
-      <p class="section-sub">视频内容自动生成结构化笔记：封面、时间戳引用、章节、截图、AI 总结。</p>
-      <div class="showcase-grid">
-        <figure class="shot">
-          <img src="assets/img/cover_sample.jpg" alt="笔记封面示例" loading="lazy">
-          <figcaption>自动生成的笔记封面与标题</figcaption>
-        </figure>
-        <figure class="shot">
-          <img src="assets/img/note_sample.jpg" alt="笔记正文示例" loading="lazy">
-          <figcaption>正文：章节 + 时间戳引用 + 关键帧截图</figcaption>
-        </figure>
+    <!-- Release Notes Area -->
+    <section class="section" id="updates">
+      <div class="container narrow-container">
+        <div class="section-head text-center">
+          <p class="section-tag">VERSION RELEASE</p>
+          <h2 class="section-heading">持续进化与迭代日志</h2>
+          <p class="section-desc">每一版均经过严格实机测试与全链路用例回归。</p>
+        </div>
+
+        <div class="release-container">
+          <div class="release-header-card">
+            <div class="release-badge-tag" id="release-tag-display">v2.5.5</div>
+            <div class="release-date" id="release-date-display">稳定发行版</div>
+          </div>
+          <div class="release-markdown-view" id="release-notes-body">
+            <!-- Dynamic Content or Fallback -->
+            <h3>主要改进与架构优化</h3>
+            <ul>
+              <li><b>微信视频号</b>：重构本地服务与凭据持久化，支持 Netscape 格式多行 Cookie 格式化与单行规范写入。</li>
+              <li><b>LLM 容灾</b>：针对 429 频率超限构建指数退避重试机制（10s / 20s / 40s），单次长文超时上限提升至 180s。</li>
+              <li><b>安装包加固</b>：内置独立 Deno 挑战引擎与本地微服务组件，修复权限沙盒与系统路径解耦。</li>
+              <li><b>排版与视觉</b>：全新官网与现代暗黑级交互规范全面发布。</li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section" id="how">
-    <div class="section-inner">
-      <h2>三步生成笔记</h2>
-      <ol class="steps">
-        <li><b>粘贴链接</b><span>复制任意平台的视频链接，粘贴到输入框</span></li>
-        <li><b>自动处理</b><span>解析 → 下载 → 截帧 → 转写 → AI 总结</span></li>
-        <li><b>阅读与导出</b><span>生成结构化笔记，导出 Markdown / HTML / PDF / Obsidian</span></li>
-      </ol>
-    </div>
-  </section>
+    <!-- FAQ Accordion -->
+    <section class="section section-darker" id="faq">
+      <div class="container narrow-container">
+        <div class="section-head text-center">
+          <p class="section-tag">FREQUENTLY ASKED QUESTIONS</p>
+          <h2 class="section-heading">常见解答与疑问</h2>
+        </div>
 
-  <section class="section alt" id="faq">
-    <div class="section-inner narrow">
-      <h2>常见问题</h2>
-      <details>
-        <summary>需要配置什么环境吗？</summary>
-        <p>不需要。安装包已内置 ffmpeg、转写模型与各平台解析引擎，安装后即可使用。</p>
-      </details>
-      <details>
-        <summary>AI 总结使用什么模型？</summary>
-        <p>支持任意 OpenAI 兼容接口（商汤、DeepSeek、通义、Groq 等），可在设置中自由配置 Key 与模型。</p>
-      </details>
-      <details>
-        <summary>我的数据会上传吗？</summary>
-        <p>视频、音频、笔记全部保存在本地。仅在你使用云转写或云端 AI 总结时，内容会发送至对应服务商。</p>
-      </details>
-      <details>
-        <summary>视频号/抖音等平台需要 Cookie 吗？</summary>
-        <p>部分平台（如视频号、抖音）受平台风控限制，按设置页指引填入 Cookie 可获得更稳定的解析成功率。</p>
-      </details>
-      <details>
-        <summary>支持哪些导出格式？</summary>
-        <p>Markdown、HTML、PDF、JPG 长图，以及直接导出到 Obsidian 仓库。</p>
-      </details>
-    </div>
-  </section>
+        <div class="accordion">
+          <div class="acc-item">
+            <button class="acc-trigger" type="button">
+              <span>使用前需要在电脑上配置 Python 或 FFmpeg 运行环境吗？</span>
+              <svg class="acc-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="acc-content">
+              <p>完全不需要。BiliNote Windows 客户端为全自包含安装包，内置了优化版 FFmpeg 二进制、Deno 挑战求解引擎、离线 Whisper 转录模型与全部依赖运行时，开箱即可独立运行。</p>
+            </div>
+          </div>
 
-  <footer>
-    <div class="footer-inner">
-      <p class="footer-brand">📝 BiliNote</p>
-      <p class="footer-note">本软件为个人开源项目，与哔哩哔哩、Google、腾讯、字节跳动等平台无关，各平台内容版权归原作者所有。请遵守相关平台服务条款，仅用于个人学习与研究。</p>
-      <p class="footer-copy">© 2026 JX-Kenshin · <a href="https://github.com/JX-Kenshin" target="_blank" rel="noopener">GitHub</a></p>
+          <div class="acc-item">
+            <button class="acc-trigger" type="button">
+              <span>AI 总结使用的是什么模型？我可以使用自己的 API Key 吗？</span>
+              <svg class="acc-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="acc-content">
+              <p>BiliNote 采用开放协议架构。你可以无缝连接任何提供 OpenAI 兼容接口的大模型供应商（例如商汤日日新、DeepSeek、阿里通义千问、Groq、SiliconFlow 或本地 Ollama / vLLM）。在软件设置面板中填入你的专属 Base URL 与 API Key 即可。</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <button class="acc-trigger" type="button">
+              <span>我的视频、音频和生成的笔记会被上传到你们的服务器吗？</span>
+              <svg class="acc-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="acc-content">
+              <p>我们没有自己的中转服务器。所有多媒体下载、截帧、本地 Whisper 转写和生成的笔记都纯粹存储在你本机的 <code>backend/data/</code> 目录下。仅当你主动配置了云端大模型 API 时，音频提取出的文字转录稿会被发送到你指定的模型服务商用于生成摘要。</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <button class="acc-trigger" type="button">
+              <span>为什么视频号或抖音有时需要填入 Cookie？</span>
+              <svg class="acc-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="acc-content">
+              <p>部分流媒体平台具有较严格的匿名反爬策略。B 站的大多数公开视频已实现免登录指纹自动生成；对于视频号和抖音，BiliNote 设置页面提供了非常清晰的一键 F12 抓取指引，填入一次即可稳定调用数月，Cookie 纯本地加密保存。</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <button class="acc-trigger" type="button">
+              <span>导出的笔记支持哪些格式？</span>
+              <svg class="acc-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="acc-content">
+              <p>支持导出为标准 Markdown（含时间戳与封面）、独立自包含离线 HTML（无网络依赖也能完美排版浏览）、矢量打印级 PDF、长图 JPG，以及直接保存到 Obsidian Vault 目录中。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Action Banner -->
+    <section class="section-cta">
+      <div class="container text-center">
+        <h2 class="cta-heading">让知识触手可及，开启高效率视听学习</h2>
+        <p class="cta-sub">立即下载适用于 Windows 的最新版本，享受极速视频转笔记体验。</p>
+        <div class="cta-btn-box">
+          <a class="btn-download-hero" href="https://github.com/JX-Kenshin/bilinote-site/releases/latest/download/BiliNote-Setup.exe" target="_blank" rel="noopener">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <span class="btn-main-text">免费获取 BiliNote</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-top">
+        <div class="footer-brand-col">
+          <div class="footer-logo">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3c77fb" stroke-width="2.2">
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+              <path d="M6 6h10"/>
+              <path d="M6 10h10"/>
+            </svg>
+            <span>BiliNote</span>
+          </div>
+          <p class="footer-tagline">专注于音视频知识转化与深度沉淀的极客效率工具。</p>
+        </div>
+
+        <div class="footer-links-col">
+          <h4>生态入口</h4>
+          <a href="#features">功能架构</a>
+          <a href="#showcase">效果预览</a>
+          <a href="#workflow">处理流水线</a>
+          <a href="#faq">常见解答</a>
+        </div>
+
+        <div class="footer-links-col">
+          <h4>项目资源</h4>
+          <a href="https://github.com/JX-Kenshin/bilinote-site" target="_blank" rel="noopener">GitHub 仓库</a>
+          <a href="https://github.com/JX-Kenshin/bilinote-site/releases/latest" target="_blank" rel="noopener">版本发行页</a>
+          <a href="https://github.com/JX-Kenshin/bilinote-site/issues" target="_blank" rel="noopener">问题反馈 (Issues)</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-disclaimer">
+          免责声明：本软件为个人开源项目，与哔哩哔哩、Google、腾讯、字节跳动等流媒体平台无任何商业关联。各音视频平台内容版权归原权利人所有。请严格遵守平台服务条款，仅用于个人离线学习、学术研讨与笔记沉淀。
+        </p>
+        <p class="footer-copyright">
+          © 2026 JX-Kenshin · All Rights Reserved. Released under Personal License.
+        </p>
+      </div>
     </div>
   </footer>
 

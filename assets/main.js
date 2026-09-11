@@ -1,77 +1,112 @@
-// BiliNote official site - progressive enhancement.
-// The download button already points to the FIXED latest URL
-// (releases/latest/download/BiliNote-Setup.exe) which never expires and
-// never hits the GitHub API rate limit. This script only enriches it with
-// the exact version info when the API happens to be available - failures
-// are harmless (button keeps working via the static URL).
+// BiliNote Official Website Client Script
+// High-reliability progressive enhancement + Accordion interactions
+
 (function () {
-  "use strict";
+  'use strict';
 
-  var API_URL = "https://api.github.com/repos/JX-Kenshin/bilinote-site/releases/latest";
+  // 1. Accordion / FAQ Interaction
+  const accItems = document.querySelectorAll('.acc-item');
+  accItems.forEach((item) => {
+    const trigger = item.querySelector('.acc-trigger');
+    const content = item.querySelector('.acc-content');
 
-  function pickExeAsset(release) {
-    var assets = (release && release.assets) || [];
-    // prefer the versioned asset (BiliNote-x.x.x-Setup.exe) for the exact link
-    for (var i = 0; i < assets.length; i++) {
-      if (/BiliNote-[\d.]+-Setup\.exe$/i.test(assets[i].name)) return assets[i];
-    }
-    for (var j = 0; j < assets.length; j++) {
-      if (/\.exe$/i.test(assets[j].name)) return assets[j];
-    }
-    return null;
-  }
+    if (!trigger || !content) return;
 
-  function fmtDate(iso) {
-    if (!iso) return "";
-    try {
-      return new Date(iso).toLocaleDateString("zh-CN", {
-        year: "numeric", month: "long", day: "numeric"
+    trigger.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+
+      // Close all other items for clean single-focus accordion
+      accItems.forEach((other) => {
+        if (other !== item && other.classList.contains('open')) {
+          other.classList.remove('open');
+          const otherContent = other.querySelector('.acc-content');
+          if (otherContent) otherContent.style.maxHeight = null;
+        }
       });
-    } catch (e) {
-      return "";
+
+      // Toggle current item
+      if (isOpen) {
+        item.classList.remove('open');
+        content.style.maxHeight = null;
+      } else {
+        item.classList.add('open');
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // 2. Fetch Latest Release Info (Progressive Enhancement)
+  const API_LATEST = 'https://api.github.com/repos/JX-Kenshin/bilinote-site/releases/latest';
+
+  const heroBadgeTag = document.getElementById('hero-badge-tag');
+  const btnVersion = document.getElementById('btn-version');
+  const releaseTagDisplay = document.getElementById('release-tag-display');
+  const releaseDateDisplay = document.getElementById('release-date-display');
+  const releaseNotesBody = document.getElementById('release-notes-body');
+
+  async function syncLatestRelease() {
+    try {
+      const res = await fetch(API_LATEST, {
+        headers: { Accept: 'application/vnd.github.v3+json' },
+      });
+
+      if (!res.ok) {
+        // Silent degrade; HTML already has reliable static fallbacks
+        return;
+      }
+
+      const data = await res.json();
+      const tagName = data.tag_name || 'v2.5.5';
+
+      // Format publish date
+      let dateStr = '稳定发行版';
+      if (data.published_at) {
+        const d = new Date(data.published_at);
+        dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')} 发布`;
+      }
+
+      // Update badge
+      if (heroBadgeTag) {
+        heroBadgeTag.textContent = `${tagName} 最新版已发布`;
+      }
+
+      // Update CTA Subtitle
+      if (btnVersion) {
+        btnVersion.textContent = `${tagName} · 64-bit 独立安装包`;
+      }
+
+      // Update Release card header
+      if (releaseTagDisplay) {
+        releaseTagDisplay.textContent = tagName;
+      }
+      if (releaseDateDisplay) {
+        releaseDateDisplay.textContent = dateStr;
+      }
+
+      // Render release notes markdown if present and valid
+      if (data.body && releaseNotesBody) {
+        const rendered = parseSimpleMarkdown(data.body);
+        if (rendered.trim()) {
+          releaseNotesBody.innerHTML = rendered;
+        }
+      }
+    } catch {
+      // Offline or rate-limited; fallback static text is already pristine
     }
   }
 
-  function renderReleaseNotes(body) {
-    if (!body) return;
-    var el = document.getElementById("release-notes-body");
-    if (!el) return;
-    var html = body
-      .split(/\r?\n/)
-      .map(function (line) {
-        line = line.trim();
-        if (!line) return "";
-        if (/^#{1,3}\s/.test(line)) return "<b>" + line.replace(/^#{1,3}\s/, "") + "</b>";
-        if (/^[-*]\s/.test(line)) return "&nbsp;&nbsp;&bull; " + line.replace(/^[-*]\s/, "");
-        return line;
-      })
-      .filter(Boolean)
-      .join("<br>");
-    el.innerHTML = html;
+  function parseSimpleMarkdown(md) {
+    if (!md) return '';
+    return md
+      .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+      .replace(/^## (.*$)/gim, '<h3>$1</h3>')
+      .replace(/^# (.*$)/gim, '<h3>$1</h3>')
+      .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+      .replace(/^\s*-\s+(.*$)/gim, '<li>$1</li>')
+      .replace(/(<li>.*<\/li>)/gms, '<ul>$1</ul>')
+      .replace(/\n\n+/g, '<br>');
   }
 
-  fetch(API_URL)
-    .then(function (res) {
-      if (!res.ok) throw new Error("api status " + res.status);
-      return res.json();
-    })
-    .then(function (release) {
-      var asset = pickExeAsset(release);
-      var btn = document.getElementById("btn-download");
-      var meta = document.getElementById("btn-version");
-      var empty = document.getElementById("release-empty");
-      if (asset && btn) btn.setAttribute("href", asset.browser_download_url);
-      if (meta && release) {
-        var label = "v" + release.tag_name;
-        var date = fmtDate(release.published_at);
-        if (date) label += " · " + date;
-        meta.textContent = label;
-      }
-      if (empty) empty.style.display = "none";
-      renderReleaseNotes(release.body);
-      document.title = "BiliNote v" + release.tag_name + " - 视频一键转 AI 结构化笔记";
-    })
-    .catch(function () {
-      // API unavailable/rate-limited: keep the static latest URL - nothing to do.
-    });
+  // Execute sync
+  syncLatestRelease();
 })();
