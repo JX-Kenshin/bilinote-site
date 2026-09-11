@@ -36,6 +36,7 @@
         <a href="#features">功能架构</a>
         <a href="#showcase">效果预览</a>
         <a href="#workflow">处理流水线</a>
+        <a href="#guide">使用教程</a>
         <a href="#updates">更新日志</a>
         <a href="#faq">常见问题</a>
       </div>
@@ -46,7 +47,7 @@
             <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
           </svg>
         </a>
-        <a href="#download-anchor" class="btn-nav-cta">立即下载</a>
+        <a href="https://github.com/JX-Kenshin/bilinote-site/releases/latest/download/BiliNote-Setup.exe" target="_blank" rel="noopener" class="btn-nav-cta">立即下载</a>
       </div>
     </nav>
   </header>
@@ -153,22 +154,9 @@
             </div>
 
             <div class="mockup-body">
-              <div class="mockup-grid">
-                <div class="mockup-col">
-                  <div class="mockup-card-label">
-                    <span>自动截取高画质封面与时间戳元数据</span>
-                  </div>
-                  <div class="media-frame">
-                    <img src="assets/img/cover_sample.jpg" alt="BiliNote 自动生成的笔记封面" loading="lazy">
-                  </div>
-                </div>
-                <div class="mockup-col">
-                  <div class="mockup-card-label">
-                    <span>段落结构、核心观点提炼与关键帧对齐</span>
-                  </div>
-                  <div class="media-frame">
-                    <img src="assets/img/note_sample.jpg" alt="BiliNote 结构化正文与截图对齐" loading="lazy">
-                  </div>
+              <div class="mockup-single">
+                <div class="media-frame media-frame-full">
+                  <img src="assets/img/showcase_app.png" alt="BiliNote 主界面截图" loading="lazy">
                 </div>
               </div>
             </div>
@@ -280,6 +268,89 @@
             <div class="step-num">03</div>
             <h4>阅读、复制或多格式导出</h4>
             <p>支持隐藏截图的纯享阅读、原文与转写对照。一键导出标准 Markdown、独立自包含 HTML、PDF 或高清 JPG 长图。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Usage Guide / Setup Tutorial -->
+    <section class="section" id="guide">
+      <div class="container">
+        <div class="section-head text-center">
+          <p class="section-tag">QUICK START GUIDE</p>
+          <h2 class="section-heading">三步入门，5 分钟完成配置</h2>
+          <p class="section-desc">从接入模型到生成第一篇结构化笔记，按以下三步操作即可。</p>
+        </div>
+
+        <!-- Step 1: Model Provider -->
+        <div class="guide-card">
+          <div class="guide-step-head">
+            <span class="guide-step-num">01</span>
+            <div>
+              <h3 class="guide-step-title">添加模型供应商</h3>
+              <p class="guide-step-desc">进入软件「设置」，添加供应商与模型。商汤提供免费模型，适合新手快速体验完整流程。</p>
+            </div>
+          </div>
+          <div class="guide-body">
+            <ol class="guide-list">
+              <li>进入 <code>设置</code>，点击添加供应商和模型。</li>
+              <li>打开商汤开放平台 <a href="https://platform.sensenova.cn/login?login_challenge=f4ddc60aecda4fe693b56a1680839eec&lang=zh-CN" target="_blank" rel="noopener">platform.sensenova.cn</a>，注册并登录账号。</li>
+              <li>填入你的 <b>API Key</b>，API 地址填写 <code>https://token.sensenova.cn/v1</code>。</li>
+              <li>模型选择 <code>sensenova-6.8-flash-lite</code>。</li>
+            </ol>
+            <figure class="guide-figure">
+              <img src="assets/img/tutorial/step1-provider.png" alt="设置界面：添加模型供应商" loading="lazy">
+            </figure>
+          </div>
+        </div>
+
+        <!-- Step 2: Cookie -->
+        <div class="guide-card">
+          <div class="guide-step-head">
+            <span class="guide-step-num">02</span>
+            <div>
+              <h3 class="guide-step-title">配置平台 Cookie</h3>
+              <p class="guide-step-desc">除 B 站外，其他平台（视频号 / 抖音等）都需要配置 Cookie 才能解析视频。使用浏览器扩展一键获取。</p>
+            </div>
+          </div>
+          <div class="guide-body">
+            <ol class="guide-list">
+              <li>在浏览器扩展商店安装 <code>Get cookies.txt LOCALLY</code>。</li>
+              <li>打开对应平台官网，用扩展导出 <code>Cookie</code>。</li>
+              <li>将 Cookie 粘贴进软件的「下载配置」中即可。</li>
+            </ol>
+            <div class="guide-figure-group">
+              <figure class="guide-figure">
+                <img src="assets/img/tutorial/step2-cookie-1.png" alt="下载配置界面" loading="lazy">
+              </figure>
+              <figure class="guide-figure">
+                <img src="assets/img/tutorial/step2-cookie-2.png" alt="浏览器扩展导出 Cookie" loading="lazy">
+              </figure>
+              <figure class="guide-figure">
+                <img src="assets/img/tutorial/step2-cookie-3.png" alt="Cookie 粘贴进下载配置" loading="lazy">
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Generate Note -->
+        <div class="guide-card">
+          <div class="guide-step-head">
+            <span class="guide-step-num">03</span>
+            <div>
+              <h3 class="guide-step-title">生成笔记</h3>
+              <p class="guide-step-desc">选择模型、粘贴视频链接、一键生成，即可获得结构化深度笔记。</p>
+            </div>
+          </div>
+          <div class="guide-body">
+            <ol class="guide-list">
+              <li>在工作台顶部选择已配置的模型。</li>
+              <li>粘贴视频分享链接到输入栏。</li>
+              <li>点击「生成笔记」，等待流水线自动完成即可。</li>
+            </ol>
+            <figure class="guide-figure">
+              <img src="assets/img/tutorial/step3-generate.png" alt="生成笔记界面" loading="lazy">
+            </figure>
           </div>
         </div>
       </div>
@@ -415,6 +486,7 @@
           <a href="#features">功能架构</a>
           <a href="#showcase">效果预览</a>
           <a href="#workflow">处理流水线</a>
+          <a href="#guide">使用教程</a>
           <a href="#faq">常见解答</a>
         </div>
 
