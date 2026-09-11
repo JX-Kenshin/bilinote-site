@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>使用教程 - BiliNote 视频一键转 AI 结构化知识笔记</title>
+  <meta name="description" content="BiliNote 三步入门教程：添加模型供应商、配置平台 Cookie、生成笔记，5 分钟完成全部配置。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233c77fb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z'/%3E%3Cpath d='M6 6h10'/%3E%3Cpath d='M6 10h10'/%3E%3C/svg%3E">
+</head>
+<body>
+  <!-- Background Glow & Grid -->
+  <div class="ambient-glow glow-top"></div>
+  <div class="ambient-glow glow-bottom"></div>
+  <div class="bg-grid-pattern"></div>
+
+  <!-- Navigation -->
+  <header class="nav-wrapper">
+    <nav class="nav">
+      <a class="brand" href="index.html">
+        <span class="brand-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+            <path d="M6 6h10"/>
+            <path d="M6 10h10"/>
+            <path d="m9 14 2 2 4-4"/>
+          </svg>
+        </span>
+        <span class="brand-name">BiliNote</span>
+      </a>
+
+      <div class="nav-menu">
+        <a href="index.html#features">功能架构</a>
+        <a href="index.html#showcase">效果预览</a>
+        <a href="index.html#workflow">处理流水线</a>
+        <a href="guide.html" class="nav-active">使用教程</a>
+        <a href="index.html#updates">更新日志</a>
+        <a href="index.html#faq">常见问题</a>
+      </div>
+
+      <div class="nav-actions">
+        <a href="https://github.com/JX-Kenshin/bilinote-site" target="_blank" rel="noopener" class="btn-ghost" title="GitHub 仓库">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+        </a>
+        <a href="https://github.com/JX-Kenshin/bilinote-site/releases/download/v2.5.5/BiliNote-2.5.5-Setup.exe" target="_blank" rel="noopener" class="btn-nav-cta">立即下载</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Guide Hero -->
+  <main>
+    <section class="hero-section guide-hero">
+      <div class="container hero-container">
+        <a href="index.html#updates" class="hero-badge">
+          <span class="badge-pulse"></span>
+          <span class="badge-version">v2.5.5 最新版已发布</span>
+          <span class="badge-divider"></span>
+          <span class="badge-cta">查看更新内容 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></span>
+        </a>
+
+        <h1 class="hero-title">
+          三步入门，<br>
+          <span class="title-gradient">5 分钟完成配置</span>
+        </h1>
+
+        <p class="hero-description">
+          从接入模型到生成第一篇结构化笔记，按以下三步操作即可。每一步都附有界面截图，点击图片可放大查看。
+        </p>
+      </div>
+    </section>
+
+    <!-- Guide Steps -->
+    <section class="section">
+      <div class="container">
+
+        <!-- Step 1: Model Provider -->
+        <div class="guide-card">
+          <div class="guide-step-head">
+            <span class="guide-step-num">01</span>
+            <div>
+              <h3 class="guide-step-title">添加模型供应商</h3>
+              <p class="guide-step-desc">进入软件「设置」，添加供应商与模型。商汤提供免费模型，适合新手快速体验完整流程。</p>
+            </div>
+          </div>
+          <div class="guide-body">
+            <ol class="guide-list">
+              <li>进入 <code>设置</code>，点击添加供应商和模型。</li>
+              <li>打开商汤开放平台 <a href="https://platform.sensenova.cn/login?login_challenge=f4ddc60aecda4fe693b56a1680839eec&lang=zh-CN" target="_blank" rel="noopener">platform.sensenova.cn</a>，注册并登录账号。</li>
+              <li>填入你的 <b>API Key</b>，API 地址填写 <code>https://token.sensenova.cn/v1</code>。</li>
+              <li>模型选择 <code>sensenova-6.8-flash-lite</code>。</li>
+            </ol>
+            <figure class="guide-figure">
+              <img src="assets/img/tutorial/step1-provider.png" alt="设置界面：添加模型供应商" loading="lazy" class="lightbox-img" data-caption="添加模型供应商">
+            </figure>
+          </div>
+        </div>
+
+        <!-- Step 2: Cookie -->
+        <div class="guide-card">
+          <div class="guide-step-head">
+            <span class="guide-step-num">02</span>
+            <div>
+              <h3 class="guide-step-title">配置平台 Cookie</h3>
+              <p class="guide-step-desc">除 B 站外，其他平台（视频号 / 抖音等）都需要配置 Cookie 才能解析视频。使用浏览器扩展一键获取。</p>
+            </div>
+          </div>
+          <div class="guide-body">
+            <ol class="guide-list">
+              <li>在浏览器扩展商店安装 <code>Get cookies.txt LOCALLY</code>。</li>
+              <li>打开对应平台官网，用扩展导出 <code>Cookie</code>。</li>
+              <li>将 Cookie 粘贴进软件的「下载配置」中即可。</li>
+            </ol>
+            <div class="guide-figure-group">
+              <figure class="guide-figure">
+                <img src="assets/img/tutorial/step2-cookie-1.png" alt="下载配置界面" loading="lazy" class="lightbox-img" data-caption="下载配置界面">
+              </figure>
+              <figure class="guide-figure">
+                <img src="assets/img/tutorial/step2-cookie-2.png" alt="浏览器扩展导出 Cookie" loading="lazy" class="lightbox-img" data-caption="浏览器扩展导出 Cookie">
+              </figure>
+              <figure class="guide-figure">
+                <img src="assets/img/tutorial/step2-cookie-3.png" alt="Cookie 粘贴进下载配置" loading="lazy" class="lightbox-img" data-caption="Cookie 粘贴进下载配置">
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Generate Note -->
+        <div class="guide-card">
+          <div class="guide-step-head">
+            <span class="guide-step-num">03</span>
+            <div>
+              <h3 class="guide-step-title">生成笔记</h3>
+              <p class="guide-step-desc">选择模型、粘贴视频链接、一键生成，即可获得结构化深度笔记。</p>
+            </div>
+          </div>
+          <div class="guide-body">
+            <ol class="guide-list">
+              <li>在工作台顶部选择已配置的模型。</li>
+              <li>粘贴视频分享链接到输入栏。</li>
+              <li>点击「生成笔记」，等待流水线自动完成即可。</li>
+            </ol>
+            <figure class="guide-figure">
+              <img src="assets/img/tutorial/step3-generate.png" alt="生成笔记界面" loading="lazy" class="lightbox-img" data-caption="生成笔记界面">
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Action Banner -->
+    <section class="section-cta">
+      <div class="container text-center">
+        <h2 class="cta-heading">配置完成，开始你的第一篇笔记</h2>
+        <p class="cta-sub">立即下载适用于 Windows 的最新版本，享受极速视频转笔记体验。</p>
+        <div class="cta-btn-box">
+          <a class="btn-download-hero" href="https://github.com/JX-Kenshin/bilinote-site/releases/download/v2.5.5/BiliNote-2.5.5-Setup.exe" target="_blank" rel="noopener">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <span class="btn-main-text">免费获取 BiliNote</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-top">
+        <div class="footer-brand-col">
+          <div class="footer-logo">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3c77fb" stroke-width="2.2">
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+              <path d="M6 6h10"/>
+              <path d="M6 10h10"/>
+            </svg>
+            <span>BiliNote</span>
+          </div>
+          <p class="footer-tagline">专注于音视频知识转化与深度沉淀的极客效率工具。</p>
+        </div>
+
+        <div class="footer-links-col">
+          <h4>生态入口</h4>
+          <a href="index.html#features">功能架构</a>
+          <a href="index.html#showcase">效果预览</a>
+          <a href="index.html#workflow">处理流水线</a>
+          <a href="guide.html">使用教程</a>
+          <a href="index.html#faq">常见解答</a>
+        </div>
+
+        <div class="footer-links-col">
+          <h4>项目资源</h4>
+          <a href="https://github.com/JX-Kenshin/bilinote-site" target="_blank" rel="noopener">GitHub 仓库</a>
+          <a href="https://github.com/JX-Kenshin/bilinote-site/releases/latest" target="_blank" rel="noopener">版本发行页</a>
+          <a href="https://github.com/JX-Kenshin/bilinote-site/issues" target="_blank" rel="noopener">问题反馈 (Issues)</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-disclaimer">
+          免责声明：本软件为个人开源项目，与哔哩哔哩、Google、腾讯、字节跳动等流媒体平台无任何商业关联。各音视频平台内容版权归原权利人所有。请严格遵守平台服务条款，仅用于个人离线学习、学术研讨与笔记沉淀。
+        </p>
+        <p class="footer-copyright">
+          © 2026 JX-Kenshin · All Rights Reserved. Released under Personal License.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="图片预览">
+    <button class="lightbox-close" type="button" aria-label="关闭">×</button>
+    <figure class="lightbox-figure">
+      <img class="lightbox-image" src="" alt="预览图片">
+      <figcaption class="lightbox-caption"></figcaption>
+    </figure>
+  </div>
+
+  <script src="assets/main.js"></script>
+</body>
+</html>

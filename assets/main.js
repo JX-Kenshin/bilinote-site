@@ -110,19 +110,20 @@
   // Execute sync
   syncLatestRelease();
 
-  // 3. Lightbox for images (click to zoom)
+  // 3. Lightbox for images (click to zoom) - event delegation, robust with lazy-loaded images
   const lightbox = document.getElementById('lightbox');
   const lightboxImage = lightbox ? lightbox.querySelector('.lightbox-image') : null;
   const lightboxCaption = lightbox ? lightbox.querySelector('.lightbox-caption') : null;
   const lightboxClose = lightbox ? lightbox.querySelector('.lightbox-close') : null;
 
   function openLightbox(img) {
-    if (!lightbox || !lightboxImage) return;
-    lightboxImage.src = img.currentSrc || img.src;
+    if (!lightbox || !lightboxImage || !img) return;
+    const src = img.getAttribute('data-full') || img.currentSrc || img.src;
+    if (!src) return;
+    lightboxImage.src = src;
     lightboxImage.alt = img.alt || '';
     if (lightboxCaption) {
-      const caption = img.getAttribute('data-caption');
-      lightboxCaption.textContent = caption || img.alt || '';
+      lightboxCaption.textContent = img.getAttribute('data-caption') || img.alt || '';
     }
     lightbox.classList.add('open');
     lightbox.setAttribute('aria-hidden', 'false');
@@ -136,8 +137,13 @@
     document.body.style.overflow = '';
   }
 
-  document.querySelectorAll('.lightbox-img').forEach((img) => {
-    img.addEventListener('click', () => openLightbox(img));
+  // Delegated click handler: works for any .lightbox-img present now or added later
+  document.addEventListener('click', (e) => {
+    const img = e.target.closest ? e.target.closest('.lightbox-img') : null;
+    if (img) {
+      e.preventDefault();
+      openLightbox(img);
+    }
   });
 
   if (lightboxClose) {

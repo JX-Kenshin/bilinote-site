@@ -198,6 +198,11 @@ body {
   color: var(--text-primary);
 }
 
+.nav-menu a.nav-active {
+  color: #60a5fa;
+  font-weight: 700;
+}
+
 .nav-actions {
   display: flex;
   align-items: center;
@@ -251,6 +256,10 @@ body {
   text-align: center;
   position: relative;
   z-index: 1;
+}
+
+.guide-hero {
+  padding: 120px 0 48px;
 }
 
 .hero-container {
