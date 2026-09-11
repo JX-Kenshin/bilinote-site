@@ -109,4 +109,46 @@
 
   // Execute sync
   syncLatestRelease();
+
+  // 3. Lightbox for images (click to zoom)
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImage = lightbox ? lightbox.querySelector('.lightbox-image') : null;
+  const lightboxCaption = lightbox ? lightbox.querySelector('.lightbox-caption') : null;
+  const lightboxClose = lightbox ? lightbox.querySelector('.lightbox-close') : null;
+
+  function openLightbox(img) {
+    if (!lightbox || !lightboxImage) return;
+    lightboxImage.src = img.currentSrc || img.src;
+    lightboxImage.alt = img.alt || '';
+    if (lightboxCaption) {
+      const caption = img.getAttribute('data-caption');
+      lightboxCaption.textContent = caption || img.alt || '';
+    }
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    if (!lightbox) return;
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.lightbox-img').forEach((img) => {
+    img.addEventListener('click', () => openLightbox(img));
+  });
+
+  if (lightboxClose) {
+    lightboxClose.addEventListener('click', closeLightbox);
+  }
+  if (lightbox) {
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  }
 })();
